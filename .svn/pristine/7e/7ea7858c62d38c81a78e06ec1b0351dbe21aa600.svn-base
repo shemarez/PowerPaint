@@ -1,0 +1,14 @@
+package tools;
+
+public class EllipseListener extends AbstractTools{
+    
+    public EllipseListener(String theDescription) {
+        super(theDescription);
+        // TODO Auto-generated constructor stub
+    }
+
+    public EllipseListener() {
+        super("Ellipse");
+    }
+
+}

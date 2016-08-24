@@ -1,0 +1,14 @@
+package tools;
+
+public class LineListener extends AbstractTools {
+    
+    public LineListener(String theDescription) {
+        super(theDescription);
+        // TODO Auto-generated constructor stub
+    }
+
+    public LineListener() {
+        super("Line");
+    }
+
+}

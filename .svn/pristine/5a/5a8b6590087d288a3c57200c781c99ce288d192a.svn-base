@@ -1,0 +1,21 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
+
+public class RectangleListener extends AbstractTools {
+    
+    public RectangleListener() {
+        super("Rectangle");
+    }
+
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        // TODO Auto-generated method stub
+        final Shape rectangle2D = new Rectangle2D.Double(theStartPoint.x, theStartPoint.y,
+                                                         theEndPoint.x, theEndPoint.y);
+        return rectangle2D;
+    }
+
+}

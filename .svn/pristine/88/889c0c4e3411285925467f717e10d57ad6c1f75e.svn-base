@@ -1,0 +1,61 @@
+package gui;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+
+import javax.swing.JPanel;
+
+public class MyShape extends JPanel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -348201934948035474L;
+    private DrawingPanel myPanel;
+    private int myStrokeWidth;
+    private Graphics2D myG2D;
+    private Color myColor;
+    private Boolean myColorTruth;
+    private Shape myCurrentShape;
+    
+    public MyShape(DrawingPanel thePanel, Shape theCurrentShape, Color theColor, int theStrokeWidth) {
+        this.myCurrentShape = theCurrentShape;
+        this.myColor = theColor;
+        this.myStrokeWidth = theStrokeWidth;
+        this.myPanel = thePanel;
+    }
+
+    public void setCurrentShape(Shape theCurrentShape) {
+        this.myCurrentShape = theCurrentShape;
+    }
+    public void setCurrentColor(Color theColor) {
+        this.myColor = theColor;
+        
+        
+        
+    }
+    public void setCurrentThickness(int theThickness) {
+        this.myStrokeWidth = theThickness;
+    }
+    public Shape getShape() {
+        return myCurrentShape;
+    }
+    public Color getCurrentColor() {
+        return myColor;
+    }
+    
+    public void colorIsTrue(Boolean theTruth) {
+        this.myColorTruth = theTruth;
+    }
+    public Boolean getColorTruth() {
+        return myColorTruth;
+    }
+    public int getStroke() {
+      //  System.out.println(myStrokeWidth);
+        return myStrokeWidth;
+    }
+
+
+}

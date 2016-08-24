@@ -1,0 +1,68 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
+import java.util.ArrayList;
+
+import gui.DrawingPanel;
+
+public class PencilListener extends AbstractTools {
+    Shape myShape;
+    Point myStartPoint;
+    Point myEndPoint;
+    ArrayList<Shape> myShapesList;
+    Shape myCurrentShape;
+  
+    
+    public PencilListener() {
+        super("Pencil");
+        myShapesList = new ArrayList<Shape>();
+    }
+
+    
+    public void whenMousePressed(final MouseEvent theEvent, DrawingPanel thePanel) {
+        myStartPoint = theEvent.getPoint();
+        myEndPoint = myStartPoint;
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        myShapesList.add(myCurrentShape);
+        thePanel.repaint();
+        
+    }
+    public void whenMouseDragged(final MouseEvent theEvent, DrawingPanel thePanel){
+            myEndPoint = theEvent.getPoint();
+            myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+            myShapesList.add(myCurrentShape);
+            myStartPoint = myEndPoint;
+            thePanel.repaint();
+
+        
+        
+    }
+    
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) { 
+        final GeneralPath path = new GeneralPath();
+        //myShape = new GeneralPath();
+        
+        path.moveTo(theStartPoint.getX(), theStartPoint.getY());
+        path.lineTo(theEndPoint.getX(), theEndPoint.getY());
+
+
+        return path;
+        
+    }
+
+
+    @Override
+    public void whenMouseReleased(MouseEvent theEvent, DrawingPanel thePanel) {
+        myEndPoint = theEvent.getPoint();
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        myShapesList.add(myCurrentShape);
+        myStartPoint = myEndPoint;
+        thePanel.repaint();
+    }
+
+}

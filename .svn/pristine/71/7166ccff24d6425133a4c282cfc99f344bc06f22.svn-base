@@ -1,0 +1,9 @@
+package tools;
+
+public abstract class AbstractTools {
+    private String myDescription;
+    
+    public AbstractTools(final String theDescription) {
+        this.myDescription = theDescription;
+    }
+}

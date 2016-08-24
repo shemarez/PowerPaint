@@ -1,0 +1,24 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+
+import gui.DrawingPanel;
+
+public interface  Tools {
+    
+    
+    String getDescription();
+    
+    //void printTest();
+   // void recordStartPoint(Point theStartPoint);
+    Shape drawShapes(Point startPoint, Point endPoint);
+   // public void whenMouseDragged2(MouseEvent theEvent, DrawingPanel thePanel, Shape currentShape);
+ //   Point getEndPoint();
+    public Shape moveShape(final Point theStartPoint, final Point theEndPoint);
+    Shape getShape();
+    
+    public Shape moveOnlySquare(final Point theStartPoint, final Point theEndPoint);
+
+}

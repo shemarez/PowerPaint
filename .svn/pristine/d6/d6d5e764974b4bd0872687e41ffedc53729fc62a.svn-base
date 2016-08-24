@@ -1,0 +1,167 @@
+/*
+ * TCSS 305 Winter 2016
+ * PowerPaint part A
+ */
+
+package gui;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import javax.swing.JPanel;
+
+import tools.AbstractTools;
+import tools.LineListener;
+import tools.Tools;
+/**
+ * This class creates a blank canvas so that the cursor
+ * may draw a single line onto the canvas. Only one line 
+ * may be drawn at a time for the moment. This occurs by
+ * creating mouseListeners, to catch mouse motion and 
+ * get the points, so graphics2D can be implemented. 
+ * 
+ * @author Shema Rezanejad
+ * @version 1
+ *
+ */
+
+
+public final class DrawingPanel extends JPanel {
+    /** Serial version UID.*/
+    private static final long serialVersionUID = 2302812257149047261L;
+    /** The default width value. */
+    private static final int WIDTH = 500; 
+    
+    /** The default height value. */
+    private static final int HEIGHT = 400;
+    
+    /** The minimum size this component should be. */
+    private static final Dimension MIN_SIZE = new Dimension(WIDTH, HEIGHT);
+    
+    /** Setting stroke thickness. */
+    private static final int STROKE_THICKNESS = 5;
+    
+    /** UW color number 1. */
+    private static final int UW_COLOR1 = 51;
+    
+    /** UW color number 2. */
+    private static final int UW_COLOR2 = 111;
+    
+    /** Setting start point of line. */
+    private Point myStartPoint;
+    
+    /** Setting end point of line. */
+    private Point myEndPoint;
+    
+    private boolean myCanvas;
+    
+    private ToolBar myCurrentTool;
+    
+    private ToolBar myToolList;
+  //  private ArrayList<Shape> shapes;
+    
+    /**
+     * Empty constructor. Simply calls the 
+     * setup components.
+     */
+    public DrawingPanel() {
+        super();
+        setUpComponents();
+        myCanvas = false;
+        myCurrentTool = new ToolBar();
+        myToolList = new ToolBar();
+
+        
+           
+    }
+    /**
+     * Sets cursor to Cross hair for drawing. Calls
+     * mouse Listener method. Initializes the start and
+     * end points.
+     */
+    private void setUpComponents() {
+        setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        mouseListeners();
+        myStartPoint = new Point();
+        myEndPoint = new Point();
+
+
+    }
+    @Override
+    public Dimension getMinimumSize() {
+        return MIN_SIZE;
+    }
+ 
+    @Override
+    public Dimension getPreferredSize() {
+        return MIN_SIZE;
+    }
+    
+    @Override
+   public void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        setBackground(Color.WHITE);
+        final Graphics2D g2d = (Graphics2D) theGraphics;
+      /* final Shape line2D = new Line2D.Double(myStartPoint.x, myStartPoint.y,
+                                               myEndPoint.x, myEndPoint.y); */
+        g2d.setPaint(new Color(UW_COLOR1, 0, UW_COLOR2));
+        g2d.setStroke(new BasicStroke(STROKE_THICKNESS));
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                             RenderingHints.VALUE_ANTIALIAS_ON);
+     
+        final LineListener line = new LineListener();
+        System.out.println(myCurrentTool.getMyCurrentTool());
+        if (myCanvas) {
+            final Shape drawThis = line.drawShapes(myStartPoint, myEndPoint);
+            g2d.draw(drawThis);
+            
+        }
+        
+
+    }
+
+
+    /**
+     * Method for mouseListeners. I chose to create anonymous 
+     * inner classes to implement my mouseListeners. I chose to
+     * do it this way because it is faster, easier, and cleaner code.
+     * I chose to put the listeners in a different method because I felt 
+     * as though it would look nicer, and would organize my code. 
+     */
+    private void mouseListeners() {
+        this.addMouseListener(new MouseAdapter() {
+   
+            @Override
+            public void mousePressed(final MouseEvent theEvent) {
+                myCanvas = true;
+                myStartPoint = theEvent.getPoint();
+                myEndPoint = myStartPoint;
+                repaint();
+
+            }
+            
+
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(final MouseEvent theEvent) {
+                myEndPoint = theEvent.getPoint();
+                repaint();
+
+            }
+        });
+
+       
+ 
+    }
+}

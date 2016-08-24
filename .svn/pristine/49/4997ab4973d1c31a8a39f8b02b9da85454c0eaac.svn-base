@@ -1,0 +1,103 @@
+/*
+ * TCSS 305 Winter 2016
+ * PowerPaint part A
+ */
+
+package gui;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
+/**
+ * This class creates a toolbar that is 
+ * added into the main frame. Uses enhanced for
+ * loop to create toggle buttons and 
+ * @author Shema Rezanejad
+ * @version 1
+ *
+ */
+public final class ToolBar extends JFrame {
+    /** Generated serial version UID.     */
+    private static final long serialVersionUID = -6297787221312734786L;
+    
+    /** List of buttons names. */
+    private final List<String> myButtonsNames;
+    
+    /** List of JToggle Buttons added to toolbar. */
+    private final List<JToggleButton> myButtons;
+    
+    /**
+     * Constructor, initializes array lists.
+     * Creates ToggleButtons in enhanced for loop.
+     */
+    public ToolBar() {
+        super();
+        myButtonsNames = new ArrayList<String>();
+        myButtons = new ArrayList<JToggleButton>();
+        addName();
+        for (final String s: myButtonsNames) { // creates buttons
+            myButtons.add(makeButtons(s));
+        }
+    }
+    /**
+     * Public method that returns the toolbar.
+     * This is to keep my other methods private, but
+     * this way the client can still access the toolbar,
+     * but not makes changes to it.
+     * @return complete JToolBar
+     */
+    public JToolBar setupComponents() {
+
+        return createToolBar();
+
+    }
+    
+    /**
+     * Creates the buttons. Used in for loop.
+     * @param theName String name for button
+     * @return a complete JToggleButton
+     */
+    private JToggleButton makeButtons(final String theName) {
+        final JToggleButton button = new JToggleButton(theName);
+        
+        return button;
+
+    }
+    /**
+     * Adds the string names to the String
+     * arrayList.
+     */
+    private void addName() {
+        myButtonsNames.add("Pencil");
+        myButtonsNames.add("Line");
+        myButtonsNames.add("Rectangle");
+        myButtonsNames.add("Ellipse");
+
+    }
+    /**
+     * Creates the ToolBar. Adds icons to each
+     * button. Adds each button to a button group.
+     * adds each button to the toolbar.
+     * @return a complete JToolBar
+     */
+    private JToolBar createToolBar() {
+        final JToolBar mainToolBar = new JToolBar();
+        final ButtonGroup group = new ButtonGroup();
+        ImageIcon icon;
+        
+        for (final JToggleButton b : myButtons) {
+            final String iconText = b.getText().toLowerCase();
+            icon = new ImageIcon("images/" + iconText + "_bw.gif");
+            b.setIcon(icon);
+            mainToolBar.add(b);
+            group.add(b);
+        }
+        return mainToolBar;
+    }
+
+}

@@ -1,0 +1,45 @@
+package gui;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
+
+public class MyShape extends JPanel {
+    private DrawingPanel myPanel;
+    private int myStrokeWidth;
+    private Graphics2D myG2D;
+    
+    public MyShape(DrawingPanel thePanel) {
+        this.myPanel = thePanel;
+
+        this.myG2D = thePanel.getMyGraphics();
+    }
+    
+    
+    public Graphics2D setStrokeWidth(int theStrokeWidth) {
+        this.myStrokeWidth = theStrokeWidth;
+        if (myStrokeWidth == 0) {
+           // System.out.println("setWidth " +theStrokeWidth );
+          //  myG2D.setTheColor(Color.white);
+            repaint();
+            
+        } else {
+          //  System.out.println("setWidth " +theStrokeWidth );
+            myPanel.setTheStroke(theStrokeWidth);
+           // myPanel.setTheGraphics(myG2D);
+            revalidate();
+            repaint();
+        }
+        return myG2D;
+        
+    }
+    public void setThePaint(Color theColor) {
+        myPanel.setThePaint(theColor);
+        
+    }
+
+
+}

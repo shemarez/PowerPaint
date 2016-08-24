@@ -1,0 +1,74 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+
+import gui.DrawingPanel;
+
+public class LineListener extends AbstractTools {
+    Shape myShape;
+    Point myStartPoint;
+    Point myEndPoint;
+    ArrayList<Shape> myShapesList;
+    Shape myCurrentShape;
+
+    
+
+    public LineListener() {
+        super("Line");
+        myShapesList = new ArrayList<Shape>();
+    }
+    /*public Shape getShape() {
+        return myCurrentShape;
+    }*/
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        // TODO Auto-generated method stub
+        myCurrentShape = new Line2D.Double(theStartPoint.x, theStartPoint.y,
+                                               theEndPoint.x, theEndPoint.y); 
+        return myCurrentShape;
+        
+    }
+
+  /*  @Override
+    public void whenMousePressed(MouseEvent theEvent, DrawingPanel thePanel) {
+        myStartPoint = theEvent.getPoint();
+        myEndPoint = myStartPoint;
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        myShapesList.add(myCurrentShape);
+        thePanel.repaint();
+        
+    }
+
+    @Override
+    public void whenMouseDragged(MouseEvent theEvent, DrawingPanel thePanel) {
+        myEndPoint = theEvent.getPoint();
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        
+     //   myShapesList.add(myCurrentShape);
+        myStartPoint = myEndPoint;
+        thePanel.repaint();
+        
+    }
+
+    @Override
+    public void whenMouseReleased(MouseEvent theEvent, DrawingPanel thePanel) {
+        myEndPoint = theEvent.getPoint();
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        myShapesList.add(myCurrentShape);
+        myStartPoint = myEndPoint;
+        thePanel.repaint();
+        
+    }
+
+    @Override
+    public void whenMouseDragged2(MouseEvent theEvent, DrawingPanel thePanel,
+                                  Shape currentShape) {
+        // TODO Auto-generated method stub
+        
+    }*/
+}

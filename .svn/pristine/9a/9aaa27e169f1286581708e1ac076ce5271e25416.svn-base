@@ -1,0 +1,69 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+
+public class ToolBar extends JFrame{
+    
+    private JToolBar mainToolBar;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6297787221312734786L;
+
+    public ToolBar() {
+        setupComponents();
+
+        
+    }
+    
+    public JToolBar setupComponents() {
+        
+      //  setVisible(true);
+        
+        // add drawing panel here and put in a panel
+        // in the center of a borderLayout
+
+        return createToolBar();
+        
+        
+        
+    }
+    
+    private JToolBar createToolBar() {
+        mainToolBar = new JToolBar();
+        
+        // fix images on toolbar 
+        final JButton pencil = new JButton("Pencil");
+        final JButton line = new JButton("Line");
+        final JButton rectangle = new JButton("Rectangle");
+        final JButton ellipse = new JButton("Ellipse");
+        
+        final ImageIcon forPencil = new ImageIcon("pencil_bw.gif");
+        final ImageIcon forLine = new ImageIcon("line_bw.gif");
+        final ImageIcon forRect = new ImageIcon("rectangle_bw.gif");
+        final ImageIcon forEllipse = new ImageIcon("ellipse_bw.gif");
+        
+        pencil.setIcon(forPencil);
+        line.setIcon(forLine);
+        rectangle.setIcon(forRect);
+        ellipse.setIcon(forEllipse);
+        
+        mainToolBar.add(pencil);
+        mainToolBar.add(line);
+        mainToolBar.add(rectangle);
+        mainToolBar.add(ellipse);
+        
+        return mainToolBar;
+        
+        
+        
+    }
+
+}

@@ -1,0 +1,80 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import gui.DrawingPanel;
+
+public  abstract class AbstractTools implements Tools {
+    Shape myShape;
+    ArrayList<Shape> myShapesList;
+    Shape myCurrentShape;
+    private String myDescription;
+    private DrawingPanel myPanel;
+    /** Setting start point of line. */
+    private Point myStartPoint;
+    
+    /** Setting end point of line. */
+    private Point myEndPoint;
+    public AbstractTools(String theDescription) {
+        this.myDescription = theDescription;
+    }
+    public AbstractTools(Point theStartPoint, Point theEndPoint) {
+        this.myStartPoint = theStartPoint;
+        this.myEndPoint = theEndPoint;
+        myShapesList = new ArrayList<Shape>();
+    }
+    
+   /* public Point getMyStartPoint() {
+        return myStartPoint;
+    }
+    public Point getMyEndPoint() {
+        return myEndPoint;
+    }*/
+    public String getDescription() {
+        return myDescription;
+    }
+    public Point getEndPoint() {
+        return myEndPoint;
+    }
+    public Shape getShape() {
+       // myPanel.addShapes(myCurrentShape);
+        return myCurrentShape;
+    }
+    public void whenMousePressed(final MouseEvent theEvent, DrawingPanel thePanel) {
+        myPanel = thePanel;
+        myStartPoint = theEvent.getPoint();
+        myEndPoint = myStartPoint;
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        myShapesList.add(myCurrentShape);
+        thePanel.addShapes(myCurrentShape);
+        thePanel.repaint();
+        
+    }
+    public void whenMouseDragged(final MouseEvent theEvent, DrawingPanel thePanel){
+        
+            myEndPoint = theEvent.getPoint();
+            myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+            System.out.println(myCurrentShape);
+            myCurrentShape = thePanel.getMyCurrentTool().getShape();
+
+            myShapesList.add(myCurrentShape);
+           
+            myStartPoint = myEndPoint;
+            thePanel.repaint();
+
+        
+        
+    }
+    public void whenMouseReleased(MouseEvent theEvent, DrawingPanel thePanel) {
+        myEndPoint = theEvent.getPoint();
+        myCurrentShape = thePanel.getMyCurrentTool().drawShapes(myStartPoint, myEndPoint);
+        myShapesList.add(myCurrentShape);
+        myStartPoint = myEndPoint;
+        thePanel.repaint();
+    }
+
+
+}

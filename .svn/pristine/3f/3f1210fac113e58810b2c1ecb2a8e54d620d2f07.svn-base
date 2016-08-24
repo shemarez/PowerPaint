@@ -1,0 +1,47 @@
+package actions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
+import gui.DrawingPanel;
+import tools.EllipseListener;
+import tools.PencilListener;
+import tools.Tools;
+
+
+public class EllipseAction extends AbstractAction{
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2466218894621322428L;
+    private final DrawingPanel myDrawingArea;
+    private EllipseListener myEllipse;
+    private Tools myCurrentTool;
+    
+    public EllipseAction(DrawingPanel theDrawingArea) {
+        super("Ellipse");
+        this.myDrawingArea = theDrawingArea;
+        myEllipse = new EllipseListener();
+        
+        putValue(Action.MNEMONIC_KEY, KeyEvent.VK_E);
+        putValue(Action.SELECTED_KEY, true);
+    }
+
+    @Override
+    public void actionPerformed(final ActionEvent theEvent) {
+      
+        myDrawingArea.myCurrentTool = new EllipseListener();
+       // myDrawingArea.addShapes(myEllipse.drawShapes(myDrawingArea.getStartPoint(), myDrawingArea.getEndPoint()));
+        
+        
+    }
+   @Override
+   public String toString() {
+       return "Ellipse";
+   }
+
+}

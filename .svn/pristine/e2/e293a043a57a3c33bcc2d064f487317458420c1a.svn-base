@@ -1,0 +1,43 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+
+import gui.DrawingPanel;
+
+
+public class EllipseListener extends AbstractTools{
+
+    
+    public EllipseListener() {
+        super("Ellipse");
+    }
+
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        final Shape ellipse2D = new Ellipse2D.Double(theStartPoint.getX(), theStartPoint.getY()
+                                               , theEndPoint.getX(), theEndPoint.getY());
+        return ellipse2D;
+    }
+
+    @Override
+    public void whenMousePressed(MouseEvent theEvent, DrawingPanel thePanel) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void whenMouseDragged(MouseEvent theEvent, DrawingPanel thePanel) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void whenMouseReleased(MouseEvent theEvent, DrawingPanel thePanel) {
+        // TODO Auto-generated method stub
+        
+    }
+
+}

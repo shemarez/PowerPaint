@@ -1,0 +1,53 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.Icon;
+
+public class ColorItemIcon implements Icon {
+    /** UW color number 1. */
+    private static final int UW_COLOR1 = 51;
+    
+    /** UW color number 2. */
+    private static final int UW_COLOR2 = 111;
+    private int myWidth = 20;
+    private int myHeight = 20;
+    private Color myColor;
+    private Color myDefaultColor;
+    public ColorItemIcon() {
+        myDefaultColor = new Color(UW_COLOR1, 0, UW_COLOR2);
+    }
+    @Override
+    public int getIconHeight() {
+        // TODO Auto-generated method stub
+        return myHeight;
+    }
+    
+
+    @Override
+    public int getIconWidth() {
+        // TODO Auto-generated method stub
+        return myWidth;
+    }
+    public void setColor(Color theCurrentColor) {
+        this.myColor = theCurrentColor;
+    }
+    @Override
+    public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
+        final Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setColor(myDefaultColor);
+        g2d.drawRect(x, y, myWidth, myHeight);
+        g2d.setColor(myColor);
+        g2d.fillRect(x, y, myWidth, myHeight);
+        
+
+        
+    }
+    public Color getColor() {
+        return myColor;
+    }
+
+}

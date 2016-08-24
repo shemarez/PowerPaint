@@ -1,0 +1,9 @@
+package tools;
+
+public class PencilListener extends AbstractTools {
+    
+    public PencilListener() {
+        super("Pencil");
+    }
+
+}

@@ -1,0 +1,37 @@
+package tools;
+
+import java.awt.Point;
+
+public  abstract class AbstractTools implements Tools {
+    private String myDescription;
+    /** Setting start point of line. */
+    private Point myStartPoint;
+    
+    /** Setting end point of line. */
+    private Point myEndPoint;
+    
+    public AbstractTools(final String theDescription) {
+        this.myDescription = theDescription;
+    }
+    public AbstractTools(Point theStartPoint, Point theEndPoint) {
+        this.myStartPoint = theStartPoint;
+        this.myEndPoint = theEndPoint;
+    }
+    
+   /* public Point getMyStartPoint() {
+        return myStartPoint;
+    }
+    public Point getMyEndPoint() {
+        return myEndPoint;
+    }*/
+    public void printTest() {
+        System.out.println("Start: " + myStartPoint + "\nEnd: " + myEndPoint);
+    }
+    public String getDescription() {
+        return myDescription;
+    }
+    public Point getEndPoint() {
+        return myEndPoint;
+    }
+
+}

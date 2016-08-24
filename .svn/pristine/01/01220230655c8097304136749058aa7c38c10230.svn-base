@@ -1,0 +1,56 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+
+
+public class EllipseListener extends AbstractTools{
+    Ellipse2D myCurrentShape;
+    Point myStartPoint;
+    
+    public EllipseListener() {
+        super("Ellipse");
+    }
+    
+   /* public Shape getShape() {
+        return myCurrentShape;
+    }*/
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        myStartPoint = theStartPoint;
+//        myCurrentShape = new Ellipse2D.Double(theStartPoint.getX(), theStartPoint.getY()
+//                                               , theEndPoint.getX(), theEndPoint.getY());
+        myCurrentShape = new Ellipse2D.Double(theStartPoint.getX(), theStartPoint.getX()
+                                              , theEndPoint.getY(), theEndPoint.getY());
+        return myCurrentShape;
+
+    }
+
+    @Override
+    public Shape moveShape(final Point theStartPoint, final Point theEndPoint) {
+        myCurrentShape.setFrameFromDiagonal(myStartPoint.x, myStartPoint.y
+                                               , theEndPoint.x, theEndPoint.y);
+        
+      //  myCurrentShape.setFrameFromDiagonal(theStartPoint.x, theEndPoint.x, theStartPoint.y, theEndPoint.y);
+        //myCurrentShape.setFrameFromDiagonal(myStartPoint.x, myStartPoint.x, theEndPoint.y, theEndPoint.y);
+        
+        return myCurrentShape;
+    }
+    @Override
+    public Shape moveOnlySquare(final Point theStartPoint, final Point theEndPoint) {
+        myCurrentShape = new Ellipse2D.Double(theStartPoint.getX(), theStartPoint.getX()
+                                              , theEndPoint.getY(), theEndPoint.getY());
+        myCurrentShape.setFrameFromDiagonal(theStartPoint.x, theEndPoint.x, theStartPoint.y, theEndPoint.y);
+        
+        return myCurrentShape;
+    }
+    public Shape getShape() {
+        
+         return myCurrentShape;
+     }
+    
+    
+
+
+}

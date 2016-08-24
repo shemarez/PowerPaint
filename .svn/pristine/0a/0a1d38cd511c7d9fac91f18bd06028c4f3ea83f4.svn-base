@@ -1,0 +1,246 @@
+/*
+ * TCSS 305 Winter 2016
+ * PowerPaint part A
+ */
+
+package gui;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+import tools.PencilListener;
+import tools.Tools;
+/**
+ * This class creates a blank canvas so that the cursor
+ * may draw a single line onto the canvas. Only one line 
+ * may be drawn at a time for the moment. This occurs by
+ * creating mouseListeners, to catch mouse motion and 
+ * get the points, so graphics2D can be implemented. 
+ * 
+ * @author Shema Rezanejad
+ * @version 1
+ *
+ */
+
+
+public final class DrawingPanel extends JPanel {
+    /** Serial version UID.*/
+    private static final long serialVersionUID = 2302812257149047261L;
+    /** The default width value. */
+    private static final int WIDTH = 500; 
+    
+    /** The default height value. */
+    private static final int HEIGHT = 400;
+    
+    /** The minimum size this component should be. */
+    private static final Dimension MIN_SIZE = new Dimension(WIDTH, HEIGHT);
+    
+    /** Setting stroke thickness. */
+    private static final int STROKE_THICKNESS = 5;
+    
+    /** UW color number 1. */
+    private static final int UW_COLOR1 = 51;
+    
+    /** UW color number 2. */
+    private static final int UW_COLOR2 = 111;
+    
+    /** Setting start point of line. */
+    private Point myStartPoint;
+    
+    /** Setting end point of line. */
+    private Point myEndPoint;
+    
+    private Graphics2D myG2d;
+    private boolean myCanvas;
+    
+    private boolean mySquareCircle;
+    
+    public Tools myCurrentTool;
+    private Shape myCurrentShape;
+    
+    private Color myPenColor = new Color(UW_COLOR1, 0, UW_COLOR2); // setting it to default purple
+    private int myPenThickness;
+    
+    private MyShape myShape;
+    
+    private Color myColor;
+    
+   
+  //  private ArrayList<Shape> myShapesList;
+    private ArrayList<MyShape> myShapesList;
+    
+    /**
+     * Empty constructor. Simply calls the 
+     * setup components.
+     */
+    public DrawingPanel() {
+        super();
+        setUpComponents();
+        myCanvas = false;
+       // this.myToolList = new ToolBar();
+        myShapesList = new ArrayList<MyShape>();
+      //  myCurrentShape = new PencilListener().drawShapes(myStartPoint, myEndPoint);
+      //  myShape = new MyShape(this, myCurrentShape, myPenColor, myPenThickness);
+        myCurrentTool = new PencilListener();
+        
+      //  myPenColor = new Color(UW_COLOR1, 0, UW_COLOR2);
+        myPenThickness = STROKE_THICKNESS;
+
+    }
+    public boolean checkMyCanvas() {
+        return myCanvas;
+    }
+    public Tools getMyCurrentTool() {
+        return myCurrentTool;
+    }
+    public void setMyCurrentTool( Tools theCurrentTool) {
+        this.myCurrentTool = theCurrentTool;
+    }
+    
+    /**
+     * Sets cursor to Cross hair for drawing. Calls
+     * mouse Listener method. Initializes the start and
+     * end points.
+     */
+    private void setUpComponents() {
+        setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        mouseListeners();
+        myStartPoint = new Point();
+        myEndPoint = new Point();
+
+    }
+    public void clear() {
+        myShapesList.clear();
+    }
+    public void setCurrentShape(Shape theShape) {
+        this.myCurrentShape = theShape;
+    }
+    @Override
+    public Dimension getMinimumSize() {
+        return MIN_SIZE;
+    }
+ 
+    @Override
+    public Dimension getPreferredSize() {
+        return MIN_SIZE;
+    }
+    public void addShapes() {
+//     // System.out.println(myPenThickness);
+        myShape = new MyShape(this, myCurrentShape, myColor, myPenThickness); //what is addshapes, it originally added to the list, i call it in paintcomp
+//        if(myCurrentTool == null) {
+//            setMyCurrentTool(new PencilListener());
+//        }
+    }
+    public void setTheStroke(int theWidth) { // the same thing happens to stroke for some reason
+        
+        this.myPenThickness = theWidth;
+    }
+    
+//    public void setCurrentColor(final Color theColor) { // here is that same method
+//        this.myPenColor = theColor;
+//    }
+    public void setSquareCircle(final boolean theTruth) {
+        this.mySquareCircle = theTruth;
+    }
+    public boolean getCanvasTruth() {
+        return myCanvas;
+    }
+    public int getList() {
+     //   System.out.println(myShapesList.size());
+        return myShapesList.size();
+    }
+    
+    public void changeColor(final Color theColor) {
+        myColor = theColor;
+    }
+
+    @Override
+   public void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        myG2d = (Graphics2D) theGraphics;
+        myG2d.setPaint(myPenColor);
+    //    myG2d.setStroke(new BasicStroke(/*whatever your thickness should initially be*/));
+        setBackground(Color.WHITE);
+    //    myG2d.setPaint(myShape.getCurrentColor());
+        // like here
+        myG2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                             RenderingHints.VALUE_ANTIALIAS_ON);
+            addShapes();
+            for (final MyShape t: myShapesList) {
+                myG2d.setPaint(t.getCurrentColor());
+                myG2d.setStroke(new BasicStroke(t.getStroke()));  // calling them here
+               // System.out.println(getTheStroke());
+                myG2d.draw(t.getShape()); 
+            }
+            if (myCanvas) {
+                myG2d.setPaint(myColor);
+                myG2d.setStroke(new BasicStroke(myPenThickness));  // calling them here
+                myG2d.draw(myCurrentTool.getShape());
+            }
+            
+        }
+    
+    
+
+
+    /**
+     * Method for mouseListeners. I chose to create anonymous 
+     * inner classes to implement my mouseListeners. I chose to
+     * do it this way because it is faster, easier, and cleaner code.
+     * I chose to put the listeners in a different method because I felt 
+     * as though it would look nicer, and would organize my code. 
+     */
+    private void mouseListeners() {
+        this.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mousePressed(final MouseEvent theEvent) {
+                myCanvas = true;
+                myStartPoint = theEvent.getPoint();
+                myEndPoint = myStartPoint;
+                //myCurrentTool.setColor(myColor);
+                myCurrentShape = myCurrentTool.drawShapes(myStartPoint, myEndPoint);               
+               // myShape.setCurrentShape(myCurrentShape);
+                //myShapesList.add(myShape);
+             //   repaint();
+            }
+            @Override
+            public void mouseReleased(final MouseEvent theEvent) {
+                myCanvas = true;
+               // myCurrentTool.setColor(myColor);
+                myCurrentShape = getMyCurrentTool().getShape();
+               // myShape.setCurrentShape(myCurrentShape);
+                myShapesList.add(myShape);
+                repaint();
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(final MouseEvent theEvent) {
+                myCanvas = true;
+                myEndPoint = theEvent.getPoint();
+
+                myCurrentShape = getMyCurrentTool().moveShape(myStartPoint, myEndPoint);
+                myStartPoint = myEndPoint;
+                repaint();
+                
+
+            }
+        });
+        
+
+    }
+    
+}

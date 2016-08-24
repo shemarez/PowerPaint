@@ -1,0 +1,23 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.Line2D;
+
+public class LineListener extends AbstractTools {
+
+    
+
+    public LineListener() {
+        super("Line");
+    }
+
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        // TODO Auto-generated method stub
+        final Shape line2D = new Line2D.Double(theStartPoint.x, theStartPoint.y,
+                                               theEndPoint.x, theEndPoint.y); 
+        return line2D;
+        
+    }
+}

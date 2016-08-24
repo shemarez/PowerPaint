@@ -1,0 +1,44 @@
+package actions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
+import gui.DrawingPanel;
+import tools.LineListener;
+import tools.PencilListener;
+
+
+public class LineAction extends AbstractAction{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6337781717090535746L;
+    private final DrawingPanel myDrawingArea;
+    private LineListener myLine;
+    
+    public LineAction(DrawingPanel theDrawingArea) {
+        super("Line");
+        this.myDrawingArea = theDrawingArea;
+        myLine = new LineListener();
+        
+        putValue(Action.MNEMONIC_KEY, KeyEvent.VK_L);
+        putValue(Action.SELECTED_KEY, true);
+    }
+
+    @Override
+    public void actionPerformed(final ActionEvent theEvent) {
+        myDrawingArea.myCurrentTool = new LineListener();
+        
+     //   myDrawingArea.addShapes(myLine.drawShapes(myDrawingArea.getStartPoint(), myDrawingArea.getEndPoint()));
+        
+        
+    }
+    @Override
+    public String toString() {
+        return "Line";
+    }
+}

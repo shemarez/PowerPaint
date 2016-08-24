@@ -1,0 +1,195 @@
+package gui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import com.sun.glass.events.KeyEvent;
+/**
+ * 
+ * @author Shema Rezanejad
+ * @version 1
+ *
+ */
+public class MenuBar extends JFrame {
+    private JMenu fileMenu;
+    private JMenu optionsMenu;
+    private JMenu toolsMenu;
+    private JMenu helpMenu;
+    private JMenuBar menuBar;
+
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1173067086857296724L;
+    private static final int MAX_TICKS = 20;
+    private static final int TICK_SPACING= 5;
+    private static final int MINOR_TICK_SPACING= 1;
+    
+    public MenuBar() {
+        setUpComponents();
+
+    }
+    
+    private void setUpComponents() {
+        createMenuBar();
+        
+    }
+
+    public JMenuBar createMenuBar() {
+        menuBar = new JMenuBar();
+        
+        fileMenu = new JMenu("File");
+        fileMenu.setMnemonic('F');
+        optionsMenu = new JMenu("Options");
+        optionsMenu.setMnemonic('O');
+        toolsMenu = new JMenu("Tools");
+        toolsMenu.setMnemonic('T');
+        helpMenu = new JMenu("Help");
+        helpMenu.setMnemonic('H');
+        menuBar.add(fileMenu);
+        menuBar.add(optionsMenu);
+        menuBar.add(toolsMenu);
+        menuBar.add(helpMenu);
+        
+        createSubMenuFile();
+        createSubMenuOptions();
+        createSubMenuTools();
+        createSubMenuHelp();
+
+        return menuBar;
+
+        
+      
+
+    }
+    private void createSubMenuFile(){
+        final JMenuItem undoAll = new JMenuItem("Undo all changes");
+        undoAll.setMnemonic(KeyEvent.VK_U);
+        undoAll.setEnabled(false);
+        final JMenuItem exit = new JMenuItem("Exit");
+        exit.setMnemonic(KeyEvent.VK_E);
+        fileMenu.add(undoAll);
+        fileMenu.addSeparator();
+        fileMenu.add(exit);
+        exit.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theEvent) {
+                System.exit(0);
+            }
+            
+        });
+        
+    }
+    private void createSubMenuOptions(){
+        final JCheckBoxMenuItem squareCirc = new JCheckBoxMenuItem("Square/Circle only");
+        final JMenu thickness = new JMenu("Thickness"); 
+        thickness.setMnemonic(KeyEvent.VK_T);
+        final JMenuItem color = new JMenuItem("Color");
+        color.setMnemonic(KeyEvent.VK_C);
+        optionsMenu.add(squareCirc);
+        optionsMenu.addSeparator();
+        optionsMenu.add(thickness);
+        optionsMenu.addSeparator();
+        optionsMenu.add(color);
+        
+        
+
+        color.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theEvent) {
+                
+            }
+            
+        });
+        
+        thickness.addChangeListener(new ChangeListener() {
+            /** Called in response to slider events in this window. */
+            @Override
+            public void stateChanged(final ChangeEvent theEvent) {
+                final JSlider slider = new JSlider(JSlider.HORIZONTAL, 0,
+                                                   MAX_TICKS, TICK_SPACING);
+                slider.setMajorTickSpacing(TICK_SPACING);
+                slider.setMinorTickSpacing(MINOR_TICK_SPACING);
+                slider.setPaintTicks(true);
+                slider.setPaintLabels(true);
+                thickness.add(slider);
+                
+            }
+        });
+        
+    }
+    private void createSubMenuTools(){
+        final ButtonGroup group = new ButtonGroup();
+        final JRadioButtonMenuItem pencil = new JRadioButtonMenuItem("Pencil");
+        final JRadioButtonMenuItem line = new JRadioButtonMenuItem("Line");
+        final JRadioButtonMenuItem rectangle = new JRadioButtonMenuItem("Rectangle");
+        final JRadioButtonMenuItem ellipse = new JRadioButtonMenuItem("Ellipse");
+        
+        group.add(pencil);
+        group.add(line);
+        group.add(rectangle);
+        group.add(ellipse);
+        toolsMenu.add(pencil);
+        toolsMenu.add(line);
+        toolsMenu.add(rectangle);
+        toolsMenu.add(ellipse);
+        
+    }
+    private void createSubMenuHelp() {
+        final JMenuItem about = new JMenuItem("About");
+        helpMenu.add(about);
+        about.setMnemonic(KeyEvent.VK_A);
+        
+        about.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theEvent) {
+                final ImageIcon icon = new ImageIcon("images/myIcon2.png");
+                JOptionPane.showMessageDialog(null,
+                                             "TCSS 305 \nWinter 2016 \nShema Rezanejad",
+                                             "About",
+                                             JOptionPane.INFORMATION_MESSAGE, icon);
+            
+                
+            }
+            
+        });
+        
+    }
+    
+ /* private JToolBar createToolBar() {
+        final JToolBar mainToolBar = new JToolBar();
+        
+        final JButton pencil = new JButton("Pencil");
+        final JButton line = new JButton("Line");
+        final JButton rectangle = new JButton("Rectangle");
+        final JButton ellipse = new JButton("Ellipse");
+        
+        mainToolBar.add(pencil);
+        mainToolBar.add(line);
+        mainToolBar.add(rectangle);
+        mainToolBar.add(ellipse);
+       
+        return mainToolBar;
+        
+        
+        
+    }*/
+}

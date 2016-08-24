@@ -1,0 +1,101 @@
+/*
+ * TCSS 305 Winter 2016
+ * PowerPaint part A
+ */
+
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.Action;
+import javax.swing.JFrame;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JToggleButton;
+
+import actions.EllipseAction;
+import actions.LineAction;
+import actions.PencilAction;
+import actions.RectangleAction;
+import tools.PencilListener;
+
+/**
+ * Creates the actual frame for this program. 
+ * Calls the other classes to be added to the frame.
+ * Creates icon for the window. 
+ * 
+ * @author Shema Rezanejad
+ * @version 1
+ *
+ */
+public class PowerPaintMainGUI extends JFrame {
+    /** Generated serial version UID. */
+    private static final long serialVersionUID = -5530339957859821080L;
+    DrawingPanel myDrawingArea;
+    /**
+     * Constructor, calls start() method.
+     */
+    
+    public PowerPaintMainGUI() {
+        super();
+        start();
+    }
+    
+    /**
+     * Creates the JFrame. Sets layout, calls MenuBar,
+     * ToolBar, and DrawingPanel. Calls setIcon() method.
+     * Sets location of frame. Sets visibility. 
+     */
+    private void start() {
+        setTitle("PowerPaint");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        myDrawingArea = new DrawingPanel();
+     //   final MyShape currentShape = new MyShape(drawHere);
+  
+        final MenuBar menuBar = new MenuBar(myDrawingArea, this);
+        final ToolBar toolBar =  new ToolBar();
+        
+
+        setJMenuBar(menuBar.setUpComponents());
+        add(toolBar , BorderLayout.SOUTH);
+        add(myDrawingArea, BorderLayout.CENTER);
+        
+        
+        final Action[] actions = {new PencilAction(myDrawingArea), new LineAction(myDrawingArea),
+                                  new RectangleAction(myDrawingArea), new EllipseAction(myDrawingArea)};
+        
+        for (final Action action : actions) {
+            final JRadioButtonMenuItem menuPencil = menuBar.createSubMenuTools(action);
+            final JToggleButton toolPencil = toolBar.createToolBarButton(action);
+            if (action.toString().equals("Pencil")) {
+                menuPencil.setSelected(true);
+                toolPencil.setSelected(true);
+            }
+      //      menuBar.createSubMenuTools(action);
+        //    toolBar.createToolBarButton(action);
+        }
+        setIcon();
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        
+        
+    }
+    /**
+     * Creates icon for the window. Icon is placed in images
+     * folder.
+     */
+    private void setIcon() {
+        try {
+            setIconImage(ImageIO.read(new File("images/popeyeIcon.png")));
+        } catch (final IOException exc) {
+            exc.printStackTrace();
+        }
+        
+    }
+
+}

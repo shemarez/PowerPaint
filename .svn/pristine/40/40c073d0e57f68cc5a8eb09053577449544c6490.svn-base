@@ -1,0 +1,78 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
+
+import javafx.scene.Cursor;
+
+
+
+
+
+public class DrawingPanel extends JPanel{
+    private BlankPanel myBlankPanel;
+    private JPanel centerPanel;
+    private Graphics myGraphics;
+    
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2302812257149047261L;
+
+    @Override
+   public void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        this.myGraphics = theGraphics;
+ 
+
+    }
+    public DrawingPanel() {
+        setUpComponents();
+
+
+    }
+    public BlankPanel setUpComponents() {
+        myBlankPanel = new BlankPanel();
+//        centerPanel = new JPanel();
+//        centerPanel.setPreferredSize(myBlankPanel.getPreferredSize()); // fix so that panel size = whole frame
+//        centerPanel.setMinimumSize(myBlankPanel.getMinimumSize());
+//        centerPanel.add(myBlankPanel);
+        
+        
+      // centerPanel.setcursor(Cursor.CROSSHAIR);
+      //  final MouseInputAdapter mia = new MouseInputAdapter();
+        mouseListeners();
+        return myBlankPanel;
+       // addMouseListener(this);
+      //  myBlankPanel.addMouseMotionListener(this);
+    }
+    
+    private void mouseListeners() {
+        myBlankPanel.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(final MouseEvent me){
+                System.out.println("mouse entered");
+            }
+            public void mousePressed(final MouseEvent me) {
+                System.out.println("mouse was pressed");
+            }
+
+        });
+        
+        myBlankPanel.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(final MouseEvent me) {
+                System.out.println("mouse dragged");
+                myGraphics.drawLine(me.getX(), me.getY(), me.getX(), me.getY());
+            }
+        });
+        
+ 
+    }
+}

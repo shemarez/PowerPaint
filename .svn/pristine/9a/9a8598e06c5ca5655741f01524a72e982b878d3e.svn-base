@@ -1,0 +1,48 @@
+package actions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
+import gui.DrawingPanel;
+import tools.PencilListener;
+import tools.RectangleListener;
+
+
+public class RectangleAction extends AbstractAction{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4738896753002784204L;
+    /**
+     * 
+     */
+    private final DrawingPanel myDrawingArea;
+    private RectangleListener myRectangle;
+    
+    public RectangleAction(DrawingPanel theDrawingArea) {
+        super("Rectangle");
+        this.myDrawingArea = theDrawingArea;
+        myRectangle = new RectangleListener();
+        
+        putValue(Action.MNEMONIC_KEY, KeyEvent.VK_R);
+        putValue(Action.SELECTED_KEY, true);
+    }
+
+    @Override
+    public void actionPerformed(final ActionEvent theEvent) {
+      
+        myDrawingArea.myCurrentTool = new RectangleListener();
+       // myDrawingArea.addShapes(myRectangle.drawShapes(myDrawingArea.getStartPoint(), myDrawingArea.getEndPoint()));
+        
+        
+    }
+    @Override
+    public String toString() {
+        return "Rectangle";
+    }
+
+}

@@ -1,0 +1,46 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+
+import gui.DrawingPanel;
+
+public class LineListener extends AbstractTools {
+
+    
+
+    public LineListener() {
+        super("Line");
+    }
+
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        // TODO Auto-generated method stub
+        final Shape line2D = new Line2D.Double(theStartPoint.x, theStartPoint.y,
+                                               theEndPoint.x, theEndPoint.y); 
+
+        return line2D;
+        
+    }
+
+    @Override
+    public void whenMousePressed(MouseEvent theEvent, DrawingPanel thePanel) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void whenMouseDragged(MouseEvent theEvent, DrawingPanel thePanel) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void whenMouseReleased(MouseEvent theEvent, DrawingPanel thePanel) {
+        // TODO Auto-generated method stub
+        
+    }
+}

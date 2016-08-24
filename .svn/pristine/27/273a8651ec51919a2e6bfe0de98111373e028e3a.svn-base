@@ -1,0 +1,26 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.GeneralPath;
+
+public class PencilListener extends AbstractTools {
+    Shape myShape;
+    
+    public PencilListener() {
+        super("Pencil");
+    }
+
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) { 
+        final GeneralPath path = new GeneralPath();
+       
+        path.moveTo(theStartPoint.getX(), theStartPoint.getY());
+        path.lineTo(theEndPoint.getX(), theEndPoint.getY());
+
+
+        return path;
+        
+    }
+
+}

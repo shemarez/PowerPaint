@@ -1,0 +1,57 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+
+import gui.DrawingPanel;
+
+
+public class EllipseListener extends AbstractTools{
+    ArrayList<Shape> myShapesList;
+    Ellipse2D myCurrentShape;
+    Point myStartPoint;
+    
+    public EllipseListener() {
+        super("Ellipse");
+        myShapesList = new ArrayList<Shape>();
+    }
+    
+   /* public Shape getShape() {
+        return myCurrentShape;
+    }*/
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) {
+        myStartPoint = theStartPoint;
+        myCurrentShape = new Ellipse2D.Double(theStartPoint.getX(), theStartPoint.getY()
+                                               , theEndPoint.getX(), theEndPoint.getY());
+        return myCurrentShape;
+
+    }
+
+    @Override
+    public Shape moveShape(final Point theStartPoint, final Point theEndPoint) {
+        myCurrentShape.setFrameFromDiagonal(myStartPoint.x, myStartPoint.y
+                                               , theEndPoint.x, theEndPoint.y);
+        
+  //      myCurrentShape.setFrameFromDiagonal(theStartPoint.x, theEndPoint.x, theStartPoint.y, theEndPoint.y);
+        return myCurrentShape;
+    }
+    @Override
+    public Shape moveOnlySquare(final Point theStartPoint, final Point theEndPoint) {
+        
+        myCurrentShape.setFrameFromDiagonal(theStartPoint.x, theEndPoint.x, theStartPoint.y, theEndPoint.y);
+        
+        return myCurrentShape;
+    }
+    public Shape getShape() {
+        // myPanel.addShapes(myCurrentShape);
+         return myCurrentShape;
+     }
+    
+    
+
+
+}

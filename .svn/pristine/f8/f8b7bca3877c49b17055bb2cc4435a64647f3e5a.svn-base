@@ -1,0 +1,62 @@
+package tools;
+
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
+import java.util.ArrayList;
+
+import gui.DrawingPanel;
+
+public class PencilListener extends AbstractTools {
+    Shape myShape;
+    Point myStartPoint;
+    Point myEndPoint;
+    ArrayList<Shape> myShapesList;
+    Shape myCurrentShape;
+    GeneralPath myPath;
+    
+    
+  
+    
+    public PencilListener() {
+        super("Pencil");
+        myShapesList = new ArrayList<Shape>();
+    }
+
+   /* public Shape getShape() {
+        return myPath;
+        
+    }*/
+    @Override
+    public Shape drawShapes(final Point theStartPoint, final Point theEndPoint) { 
+        myStartPoint = theStartPoint;
+        myPath = new GeneralPath();
+        //myShape = new GeneralPath();
+        
+        myPath.moveTo(theStartPoint.getX(), theStartPoint.getY());
+        myPath.lineTo(theEndPoint.getX(), theEndPoint.getY());
+        
+
+
+        return myPath;
+        
+    }
+
+    @Override
+    public Shape moveShape(Point theStartPoint, Point theEndPoint) {
+        myStartPoint = theEndPoint;
+        myPath.lineTo(theEndPoint.getX(), theEndPoint.getY());
+        myPath.moveTo(myStartPoint.x, myStartPoint.getY());
+        
+        return myPath;
+    }
+
+    @Override
+    public Shape moveOnlySquare(Point theStartPoint, Point theEndPoint) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+}

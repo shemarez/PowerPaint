@@ -1,0 +1,100 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+
+import tools.Ellipse;
+import tools.Line;
+import tools.Pencil;
+import tools.Tools;
+
+public class ToolBar extends JFrame{
+    
+    private JToolBar mainToolBar;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6297787221312734786L;
+    private final List<JButton> myButtons;
+    private  final List<Tools> createButtons;
+
+    public ToolBar() {
+        myButtons = new ArrayList<JButton>();
+        createButtons = new ArrayList<Tools>();
+
+     /*   for (final Tools t: createButtons) { // creates buttons
+            myButtons.add(createButtons(t));
+            
+        }*/
+        setupComponents();
+
+        
+    }
+    
+    public JToolBar setupComponents() {
+        
+      //  setVisible(true);
+        
+        return createToolBar();
+        
+        
+        
+    }
+   /* private void addClasses() {
+        createButtons.add(new Pencil());
+        createButtons.add(new Rectangle());
+        createButtons.add(new Ellipse());
+        createButtons.add(new Line());
+    }*/
+    
+    private JToolBar createToolBar() {
+        mainToolBar = new JToolBar();
+        
+        final ArrayList<Tools> createButtons = new ArrayList<Tools>();
+        // fix images on toolbar 
+        final JButton pencil = new JButton("Pencil");
+        final JButton line = new JButton("Line");
+        final JButton rectangle = new JButton("Rectangle");
+        final JButton ellipse = new JButton("Ellipse");
+        
+        final ImageIcon forPencil = new ImageIcon("images/pencil_bw.gif");
+        final ImageIcon forLine = new ImageIcon("images/line_bw.gif");
+        final ImageIcon forRect = new ImageIcon("images/rectangle_bw.gif");
+        final ImageIcon forEllipse = new ImageIcon("images/ellipse_bw.gif");
+
+        
+        pencil.setIcon(forPencil);
+        line.setIcon(forLine);
+        rectangle.setIcon(forRect);
+        ellipse.setIcon(forEllipse);
+        
+        mainToolBar.add(pencil);
+        mainToolBar.add(line);
+        mainToolBar.add(rectangle);
+        mainToolBar.add(ellipse);
+        
+        return mainToolBar;
+        
+        
+        
+    }
+    
+    private void setButtonIcon() {
+
+        
+    }
+
+
+}

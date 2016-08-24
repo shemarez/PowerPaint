@@ -1,0 +1,9 @@
+package tools;
+
+public class Rectangle extends AbstractTools {
+    
+    public Rectangle() {
+        super("Rectangle");
+    }
+
+}

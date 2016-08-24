@@ -1,0 +1,122 @@
+package gui;
+
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+
+import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
+
+
+
+import java.util.*;
+
+
+public class DrawingPanel extends JPanel{
+    
+    private BlankPanel myBlankPanel;
+    private Point startPoint = new Point();
+    private Point endPoint = new Point();
+    private Graphics2D g2d;
+    private ArrayList<Shape> shapes;
+    
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2302812257149047261L;
+
+
+    public DrawingPanel() {
+        setUpComponents();
+      //  mouseListeners();
+           
+    }
+    private void setUpComponents() {
+   //     myBlankPanel = new BlankPanel();
+     //   myBlankPanel.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+
+        mouseListeners();
+        //paintComponent(g2d);
+       // return myBlankPanel;
+       // addMouseListener(this);
+      //  myBlankPanel.addMouseMotionListener(this);
+    }
+    @Override
+   public void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        //theGraphics.drawRect(0, 0, WIDTH, HEIGHT);
+        setBackground(Color.WHITE);
+        g2d = (Graphics2D) theGraphics;
+        System.out.println("Start Pint = " + startPoint + " and endPoint = " + endPoint);
+        Shape line2D = new Line2D.Double(startPoint.x, startPoint.y, endPoint.x, endPoint.y); 
+       //g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        g2d.setPaint(new Color(51, 0, 111));
+        g2d.setStroke(new BasicStroke(5));
+        g2d.draw(line2D);
+        
+    }
+
+    /** The default width value. */
+    private static final int WIDTH = 500; 
+    
+    /** The default height value. */
+    private static final int HEIGHT = 400;
+    
+    /** The minimum size this component should be. */
+    private static final Dimension MIN_SIZE = new Dimension(WIDTH, HEIGHT);
+    
+    @Override
+    public Dimension getMinimumSize() {
+        return MIN_SIZE;
+    }
+ 
+    @Override
+    public Dimension getPreferredSize() {
+        return MIN_SIZE;
+    }
+
+    
+    
+    
+    private void mouseListeners() {
+        this.addMouseListener(new MouseAdapter() {
+   
+            @Override
+            public void mousePressed(final MouseEvent theEvent) {
+                System.out.println("mouse was pressed");
+                startPoint = theEvent.getPoint();
+                endPoint = startPoint;
+                repaint();
+            }
+            
+
+        });
+        
+         this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(final MouseEvent theEvent) {
+                endPoint = theEvent.getPoint();
+                System.out.println("mouse dragged");
+                     
+                // g2d.setColor(c);
+              //  startPoint = endPoint;
+                repaint();
+
+            }
+        });
+        
+       
+ 
+    }
+}

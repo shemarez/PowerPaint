@@ -1,0 +1,9 @@
+package tools;
+
+public class Ellipse extends AbstractTools{
+    
+    public Ellipse() {
+        super("Ellipse");
+    }
+
+}
